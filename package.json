@@ -1,0 +1,22 @@
+{
+  "name": "down-detector",
+  "version": "1.0.0",
+  "description": "Lighweight script to detect and log internet reliability and downtime",
+  "main": "down-detector.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plane000/Down-Detector.git"
+  },
+  "author": "Ben (plane000)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/plane000/Down-Detector/issues"
+  },
+  "homepage": "https://github.com/plane000/Down-Detector#readme",
+  "dependencies": {
+    "ping": "^0.2.2"
+  }
+}
