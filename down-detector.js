@@ -2,7 +2,6 @@ const ping = require('ping');
 
 setInterval(doStuff, 1000);
 
-var downFor = [];
 var lastState;
 var connected;
 var counter = 0;
