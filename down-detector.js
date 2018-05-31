@@ -21,7 +21,7 @@ function doStuff() {
             ConnectionRegained(counter);
             counter = 0;
         }
-        
+
         if (connected == false) {
             counter++;            
         }
