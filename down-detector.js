@@ -1,68 +1,56 @@
 const ping = require('ping');
+const fs = require('fs');
+const moment = require('moment');
 
 setInterval(doStuff, 1000);
 
-var lastState;
-var connected;
-var counter = 0;
+let lastState;
+let connected;
+let counter = 0;
 
 function doStuff() {
-    var lastPing;
+    let lastPing;
 
     ping.promise.probe('google.com', {
         timeout: 10
     }).then((result) => {
-        var time = getTime();
+        let time = getTime();
         connected = result.alive;   
         //log(connected);
         if (lastState == true && connected == false) {
             LostConnection();
+
         } else if (lastState == false && connected == true) {
-            ConnectionRegained(counter);
+            if (counter > 5) {
+                ConnectionRegained(counter);
+            }
             counter = 0;
         }
 
         if (connected == false) {
             counter++;            
         }
-        lastState = connected;
+ 
+       lastState = connected;
     });
 }
 
+const dateFormat = 'DD-MM-YY HH:MM:ss';
+
 function ConnectionRegained(timedown) {
-    var time = getTime();
-    console.log (
-        '[' + time + '] '
-        + 'Connection regained after '
-        + timedown
-        + 's of downtime'
-    );
+    let output = '[' + moment().format(dateFormat) + '] Connection regained after ' + timedown + 's of downtime';
+    console.log(output);
+    fs.writeFileSync('logs.log', output + '\n');
 }
 
 function LostConnection() {
-    var time = getTime();
-    console.log (
-        '[' + time + '] '
-        + 'Lost Connection'
-    );
+    let output = '[' + moment().format(dateFormat) + '] Lost Connection';
+    console.log(output);
+    fs.writeFileSync('logs.log', output + '\n');
 }
 
 function log(tolog) {
-    var time = getTime();
-    console.log (
-        '[' + time + '] '
-        + tolog
-    );
+    let output = '[' + moment().format(dateFormat) + '] ' + tolog;
+    console.log(output);
+    fs.writeFileSync('logs.log', output + '\n');
 }
-
-function pad(n, width, z) {
-    z = z || '0';
-    n = n + '';
-    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
-  }
-  
-function getTime() {
-    var t = new Date();
-    var time = (pad(t.getHours(), 2) + ':' + pad(t.getMinutes(), 2) + ':' + pad(t.getSeconds(), 2))
-    return time;
-  }
