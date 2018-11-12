@@ -14,8 +14,7 @@ function doStuff() {
     ping.promise.probe('google.com', {
         timeout: 10
     }).then((result) => {
-        let time = getTime();
-        connected = result.alive;   
+        connected = result.alive;
         //log(connected);
         if (lastState == true && connected == false) {
             LostConnection();
@@ -28,9 +27,9 @@ function doStuff() {
         }
 
         if (connected == false) {
-            counter++;            
+            counter++;
         }
- 
+
        lastState = connected;
     });
 }
