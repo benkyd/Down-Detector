@@ -3,6 +3,7 @@ const fs = require('fs');
 const moment = require('moment');
 
 setInterval(doStuff, 1000);
+fs.appendFileSync('logs.log', 'NEW SESSION\n');
 
 let lastState;
 let connected;
@@ -15,7 +16,7 @@ function doStuff() {
         timeout: 10
     }).then((result) => {
         connected = result.alive;
-        //log(connected);
+
         if (lastState == true && connected == false) {
             LostConnection();
 
@@ -39,17 +40,17 @@ const dateFormat = 'DD-MM-YY HH:MM:ss';
 function ConnectionRegained(timedown) {
     let output = '[' + moment().format(dateFormat) + '] Connection regained after ' + timedown + 's of downtime';
     console.log(output);
-    fs.writeFileSync('logs.log', output + '\n');
+    fs.appendFileSync('logs.log', output + '\n');
 }
 
 function LostConnection() {
     let output = '[' + moment().format(dateFormat) + '] Lost Connection';
     console.log(output);
-    fs.writeFileSync('logs.log', output + '\n');
+    fs.appendFileSync('logs.log', output + '\n');
 }
 
 function log(tolog) {
     let output = '[' + moment().format(dateFormat) + '] ' + tolog;
     console.log(output);
-    fs.writeFileSync('logs.log', output + '\n');
+    fs.appendFileSync('logs.log', output + '\n');
 }
