@@ -35,7 +35,7 @@ function doStuff() {
     });
 }
 
-const dateFormat = 'DD-MM-YY HH:MM:ss';
+const dateFormat = 'DD-MM-YY HH:mm:ss';
 
 function ConnectionRegained(timedown) {
     let output = '[' + moment().format(dateFormat) + '] Connection regained after ' + timedown + 's of downtime';
